@@ -129,7 +129,7 @@ export function SourcesPanel({
           >
             <header className="flex items-center justify-between border-b border-line-soft px-6 py-6 sm:px-8">
               <div>
-                <h2 className="font-editorial text-[48px] text-canvas-white">
+                <h2 className="font-editorial text-canvas-white">
                   sources
                 </h2>
                 <p className="micro mt-3 text-canvas-white/55">
@@ -159,7 +159,7 @@ export function SourcesPanel({
                     aria-selected={mode === m}
                     onClick={() => setMode(m)}
                     className={cn(
-                      "px-4 py-1.5 text-[12px] uppercase tracking-[-0.36px] transition-colors",
+                      "px-4 py-2 text-[12px] uppercase tracking-[-0.36px] transition-colors sm:py-1.5",
                       mode === m
                         ? "bg-canvas-white text-void"
                         : "text-canvas-white/70 hover:bg-hover-graphite"
@@ -180,7 +180,7 @@ export function SourcesPanel({
                   )}
                 >
                   <FileType2 size={26} className="text-iris-mist" />
-                  <span className="text-[24px] leading-normal tracking-[-0.24px] text-canvas-white">
+                  <span className="text-body text-canvas-white">
                     I-click para mag-upload ng PDF
                   </span>
                   <span className="micro text-canvas-white/55">
@@ -207,7 +207,7 @@ export function SourcesPanel({
                     onChange={(e) => setTextName(e.target.value)}
                     placeholder="Pangalan (e.g. Aralin sa Sibika)"
                     disabled={busy}
-                    className="w-full border border-line-soft bg-transparent px-4 py-3 text-[24px] leading-normal tracking-[-0.24px] text-canvas-white placeholder:text-canvas-white/40 focus:border-iris-mist focus:outline-none"
+                    className="w-full border border-line-soft bg-transparent px-4 py-3 text-body text-canvas-white placeholder:text-canvas-white/40 focus:border-iris-mist focus:outline-none"
                   />
                   <textarea
                     value={textBody}
@@ -215,7 +215,7 @@ export function SourcesPanel({
                     placeholder="Idikit ang teksto rito..."
                     disabled={busy}
                     rows={10}
-                    className="w-full resize-none border border-line-soft bg-transparent px-4 py-3 text-[24px] leading-normal tracking-[-0.24px] text-canvas-white placeholder:text-canvas-white/40 focus:border-iris-mist focus:outline-none"
+                    className="w-full resize-none border border-line-soft bg-transparent px-4 py-3 text-body text-canvas-white placeholder:text-canvas-white/40 focus:border-iris-mist focus:outline-none"
                   />
                   <button
                     type="button"
