@@ -66,7 +66,7 @@ function Surface() {
 
         <main>
           <section
-            className="relative isolate flex min-h-svh flex-col overflow-hidden px-5 pb-0 pt-[90px] sm:px-8"
+            className="relative isolate flex min-h-svh flex-col overflow-hidden px-5 pb-0 pt-[72px] sm:px-8 sm:pt-[90px]"
             style={{ backgroundColor: "#040b0a" }}
           >
             {/* Space-like void: deep base + green bloom rising from the orb */}
@@ -99,13 +99,13 @@ function Surface() {
               <h1 className="font-hero max-w-[980px] text-canvas-white">
                 {latestAgentText}
               </h1>
-              <p className="mt-6 max-w-[680px] text-[24px] leading-normal tracking-[-0.24px] text-canvas-white/75">
+              <p className="mt-6 max-w-[680px] text-body text-canvas-white/75">
                 Upload PDFs or paste lessons. erid answers from your sources,
                 by voice or text, in Filipino or English.
               </p>
             </div>
 
-            <div className="relative z-10 mx-auto mt-auto flex min-h-[46svh] w-full max-w-[1200px] items-end justify-center">
+            <div className="relative z-10 mx-auto mt-auto flex min-h-[40svh] w-full max-w-[1200px] items-end justify-center sm:min-h-[46svh]">
               <VoiceOrb sourcesCount={sources.length} />
             </div>
           </section>

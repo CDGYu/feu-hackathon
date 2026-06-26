@@ -96,8 +96,8 @@ export function VoiceOrb({ sourcesCount, onActiveChange }: Props) {
           !busy && "cursor-pointer hover:scale-[1.01] active:scale-[0.99]"
         )}
         style={{
-          width: "clamp(280px, 48vmin, 520px)",
-          height: "clamp(280px, 48vmin, 520px)",
+          width: "clamp(240px, 48vmin, 520px)",
+          height: "clamp(240px, 48vmin, 520px)",
         }}
       >
         <ParticleSphere
