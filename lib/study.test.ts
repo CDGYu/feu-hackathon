@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { resolveCitations } from "@/lib/study";
+import {
+  resolveCitations,
+  renderSourcesForStudy,
+  validateStudyRequest,
+} from "@/lib/study";
 import type { Source } from "@/lib/types";
 
 const sources: Source[] = [
@@ -31,5 +35,38 @@ describe("resolveCitations", () => {
     );
     expect(out).toHaveLength(1);
     expect(resolveCitations(undefined, sources)).toEqual([]);
+  });
+});
+
+describe("renderSourcesForStudy", () => {
+  it("renders page markers per page and source", () => {
+    const out = renderSourcesForStudy(sources);
+    expect(out).toContain("--- Sibika · p. 1 ---");
+    expect(out).toContain("--- Algebra Notes · p. 4 ---");
+  });
+
+  it("returns a placeholder when there are no sources", () => {
+    expect(renderSourcesForStudy([])).toBe("<no sources>");
+  });
+});
+
+describe("validateStudyRequest", () => {
+  const base = { sources };
+  it("accepts a valid quiz request", () => {
+    expect(validateStudyRequest({ kind: "quiz", ...base })).toEqual({ ok: true });
+  });
+  it("rejects an unknown kind", () => {
+    const r = validateStudyRequest({ kind: "essay", ...base });
+    expect(r.ok).toBe(false);
+  });
+  it("rejects empty sources", () => {
+    const r = validateStudyRequest({ kind: "quiz", sources: [] });
+    expect(r.ok).toBe(false);
+  });
+  it("requires sourceId and page for explain", () => {
+    expect(validateStudyRequest({ kind: "explain", ...base }).ok).toBe(false);
+    expect(
+      validateStudyRequest({ kind: "explain", sources, options: { sourceId: "s1", page: 1 } }).ok
+    ).toBe(true);
   });
 });
