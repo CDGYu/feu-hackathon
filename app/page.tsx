@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { ConversationProvider } from "@elevenlabs/react";
 import { VoiceOrb } from "@/components/voice-orb";
-import { ConversationPanel } from "@/components/conversation-panel";
+import { WorkspaceTabs } from "@/components/workspace-tabs";
 import {
   SourcesPanel,
   AddSourceButton,
@@ -138,7 +138,7 @@ function Surface() {
               </aside>
 
               <section className="min-h-[620px] border border-line-soft bg-panel p-3">
-                <ConversationPanel />
+                <WorkspaceTabs />
               </section>
             </div>
           </section>
