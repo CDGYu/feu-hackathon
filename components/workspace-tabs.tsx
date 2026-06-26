@@ -25,7 +25,7 @@ export function WorkspaceTabs() {
             aria-selected={tab === t}
             onClick={() => setTab(t)}
             className={cn(
-              "px-4 py-1.5 text-[12px] uppercase tracking-[-0.36px] transition-colors",
+              "px-4 py-2 text-[12px] uppercase tracking-[-0.36px] transition-colors sm:py-1.5",
               tab === t
                 ? "bg-canvas-white text-void"
                 : "text-canvas-white/70 hover:bg-hover-graphite"

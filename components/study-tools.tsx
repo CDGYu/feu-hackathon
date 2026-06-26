@@ -89,7 +89,7 @@ export function StudyTools({ group }: { group: Group }) {
             aria-selected={kind === t.kind}
             onClick={() => pick(t.kind)}
             className={cn(
-              "px-4 py-1.5 text-[12px] uppercase tracking-[-0.36px] transition-colors",
+              "px-4 py-2 text-[12px] uppercase tracking-[-0.36px] transition-colors sm:py-1.5",
               kind === t.kind
                 ? "bg-canvas-white text-void"
                 : "text-canvas-white/70 hover:bg-hover-graphite"
@@ -194,7 +194,7 @@ function QuizItem({ index, q }: { index: number; q: QuizQuestion }) {
   const [picked, setPicked] = useState<number | null>(null);
   return (
     <li className="border-t border-line-soft pt-4">
-      <p className="text-[24px] leading-normal tracking-[-0.24px] text-canvas-white">
+      <p className="text-[18px] leading-normal tracking-[-0.24px] text-canvas-white sm:text-[24px]">
         {index + 1}. {q.q}
       </p>
       <div className="mt-3 flex flex-col gap-1.5">
@@ -256,7 +256,7 @@ function FlashcardView({ card }: { card: Flashcard }) {
       onClick={() => setFlipped((f) => !f)}
       className="flex min-h-[120px] flex-col justify-between border border-line-soft bg-panel p-4 text-left transition-colors hover:border-iris-mist"
     >
-      <p className="text-[20px] leading-normal tracking-[-0.24px] text-canvas-white">
+      <p className="text-[17px] leading-normal tracking-[-0.24px] text-canvas-white sm:text-[20px]">
         {flipped ? card.back : card.front}
       </p>
       <span className="micro mt-3 text-canvas-white/45">
@@ -270,7 +270,7 @@ function FlashcardView({ card }: { card: Flashcard }) {
 function SummaryView({ tldr, keyPoints }: { tldr: string; keyPoints: KeyPoint[] }) {
   return (
     <div className="flex flex-col gap-5">
-      <p className="text-[24px] leading-normal tracking-[-0.24px] text-canvas-white">{tldr}</p>
+      <p className="text-body text-canvas-white">{tldr}</p>
       <ul className="flex flex-col gap-3">
         {keyPoints.map((k, i) => (
           <li key={i} className="border-t border-line-soft pt-3">
@@ -292,7 +292,7 @@ function ExplainView({
 }) {
   return (
     <div>
-      <p className="whitespace-pre-wrap text-[20px] leading-normal tracking-[-0.24px] text-canvas-white/90">
+      <p className="whitespace-pre-wrap text-[17px] leading-normal tracking-[-0.24px] text-canvas-white/90 sm:text-[20px]">
         {explanation}
       </p>
       <Citations items={citations} />

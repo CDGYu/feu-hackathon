@@ -125,7 +125,7 @@ export function ConversationPanel() {
             }
             className={cn(
               "w-full resize-none border border-line-soft bg-transparent px-3 py-3",
-              "text-[24px] leading-normal tracking-[-0.24px] text-canvas-white placeholder:text-canvas-white/40",
+              "text-body text-canvas-white placeholder:text-canvas-white/40",
               "focus:border-iris-mist focus:outline-none",
               "disabled:opacity-50",
               "min-h-[52px] max-h-40 transition-colors",
@@ -161,7 +161,7 @@ function Bubble({ message }: { message: ChatMessage }) {
         className="flex justify-end"
         style={{ animation: "float-up 0.3s ease-out" }}
       >
-        <div className="max-w-[88%] border border-iris-mist/50 bg-panel p-3 text-[24px] leading-normal tracking-[-0.24px] text-canvas-white">
+        <div className="max-w-[88%] border border-iris-mist/50 bg-panel p-3 text-body text-canvas-white">
           {message.text}
         </div>
       </li>
@@ -183,7 +183,7 @@ function Bubble({ message }: { message: ChatMessage }) {
       </div>
       <div
         className={cn(
-          "max-w-[92%] text-[24px] leading-normal tracking-[-0.24px] text-canvas-white",
+          "max-w-[92%] text-body text-canvas-white",
           message.pending && "opacity-60"
         )}
       >
@@ -217,12 +217,12 @@ function dedupe(cs: CitationRef[]): CitationRef[] {
 function EmptyState({ sourceCount }: { sourceCount: number }) {
   return (
     <div className="flex h-full min-h-[260px] flex-col items-start justify-center gap-6 text-left">
-      <p className="font-editorial text-[48px] text-canvas-white">
+      <p className="font-editorial text-canvas-white">
         {sourceCount === 0
           ? "Magdagdag ng kahit isang source"
           : "Anong gusto mong matutunan?"}
       </p>
-      <p className="max-w-md text-[24px] leading-normal tracking-[-0.24px] text-canvas-white/70">
+      <p className="max-w-md text-body text-canvas-white/70">
         {sourceCount === 0
           ? "erid will only answer from what you've loaded in. It's not a search engine — it's your notebook."
           : "Tap the orb to talk, or type below. Both are grounded in your sources."}
