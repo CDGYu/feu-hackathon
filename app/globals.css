@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+/*
+  erid — BlueYard structure, planet-reference palette
+  Aurora editorial observatory:
+    - soft cream canvas with one green/orange horizon wash
+    - Instrument Sans everywhere
+    - square cards/buttons/tags, no elevation
+    - color appears as pale card material and atmospheric orb artwork
+*/
+
+:root {
+  --color-canvas-white: #fbf8e8;
+  --color-graphite-ink: #152015;
+  --color-deep-carbon: #07100f;
+  --color-ash-veil: #8a947b;
+  --color-apricot-wash: #f08a3e;
+  --color-iris-mist: #9dff4a;
+  --color-fuchsia-bloom: #d9ff6a;
+  --color-polar-blue: #103533;
+
+  /* Dark space-void surfaces (consistent across the whole site) */
+  --color-void: #040b0a;
+  --color-panel: #0a1512;
+
+  --line-graphite: rgba(251, 248, 232, 0.34);
+  --line-soft: rgba(251, 248, 232, 0.16);
+  --hover-graphite: rgba(251, 248, 232, 0.07);
+
+  --text-caption: 12px;
+  --leading-caption: 1.5;
+  --tracking-caption: -0.36px;
+  --text-body: 24px;
+  --leading-body: 1.5;
+  --tracking-body: -0.24px;
+  --text-heading: clamp(38px, 7vw, 48px);
+  --leading-heading: 1.2;
+  --tracking-heading: -0.54px;
+  --text-display: clamp(42px, 8vw, 54px);
+  --leading-display: 1;
+  --tracking-display: -1.62px;
+  --font-system-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+}
+
+@theme inline {
+  --color-canvas-white: var(--color-canvas-white);
+  --color-graphite-ink: var(--color-graphite-ink);
+  --color-deep-carbon: var(--color-deep-carbon);
+  --color-ash-veil: var(--color-ash-veil);
+  --color-apricot-wash: var(--color-apricot-wash);
+  --color-iris-mist: var(--color-iris-mist);
+  --color-fuchsia-bloom: var(--color-fuchsia-bloom);
+  --color-polar-blue: var(--color-polar-blue);
+  --color-void: var(--color-void);
+  --color-panel: var(--color-panel);
+  --color-line-graphite: var(--line-graphite);
+  --color-line-soft: var(--line-soft);
+  --color-hover-graphite: var(--hover-graphite);
+
+  --font-instrument-sans: var(--font-instrument-sans);
+  --font-system-ui: var(--font-system-ui);
+}
+
+html,
+body {
+  background: var(--color-void);
+  color: var(--color-canvas-white);
+  font-family: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01", "cv01";
+}
+
+*::selection {
+  background: var(--color-iris-mist);
+  color: var(--color-void);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(251, 248, 232, 0.2) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(251, 248, 232, 0.2);
+  border-radius: 999px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(251, 248, 232, 0.4);
+}
+
+:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+}
+
+.font-hero {
+  font-family: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--text-display);
+  font-weight: 400;
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+}
+
+.font-editorial {
+  font-family: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
+}
+
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.7'/></svg>");
+}
+
+.micro {
+  font-family: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--text-caption);
+  font-weight: 500;
+  line-height: var(--leading-caption);
+  letter-spacing: var(--tracking-caption);
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+}
+
+@keyframes float-up {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
