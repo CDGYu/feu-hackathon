@@ -1,4 +1,5 @@
-import type { CitationRef, Source, StudyKind } from "@/lib/types";
+import { Type, type Schema } from "@google/genai";
+import type { CitationRef, Source, StudyKind, StudyOptions } from "@/lib/types";
 
 export type RawCitation = { sourceName: string; page: number };
 
@@ -63,4 +64,142 @@ export function validateStudyRequest(body: unknown): ValidationResult {
     }
   }
   return { ok: true };
+}
+
+const citationSchema: Schema = {
+  type: Type.OBJECT,
+  properties: {
+    sourceName: {
+      type: Type.STRING,
+      description: "Exact source name shown in the page markers",
+    },
+    page: {
+      type: Type.INTEGER,
+      description: "Page number shown in the page markers",
+    },
+  },
+  required: ["sourceName", "page"],
+};
+
+const citationsArray: Schema = { type: Type.ARRAY, items: citationSchema };
+
+export const STUDY_SCHEMAS: Record<StudyKind, Schema> = {
+  quiz: {
+    type: Type.OBJECT,
+    properties: {
+      questions: {
+        type: Type.ARRAY,
+        items: {
+          type: Type.OBJECT,
+          properties: {
+            q: { type: Type.STRING },
+            choices: { type: Type.ARRAY, items: { type: Type.STRING } },
+            answerIndex: {
+              type: Type.INTEGER,
+              description: "0-based index of the correct choice",
+            },
+            explanation: { type: Type.STRING },
+            citations: citationsArray,
+          },
+          required: ["q", "choices", "answerIndex", "explanation", "citations"],
+        },
+      },
+    },
+    required: ["questions"],
+  },
+  flashcards: {
+    type: Type.OBJECT,
+    properties: {
+      cards: {
+        type: Type.ARRAY,
+        items: {
+          type: Type.OBJECT,
+          properties: {
+            front: { type: Type.STRING },
+            back: { type: Type.STRING },
+            citations: citationsArray,
+          },
+          required: ["front", "back", "citations"],
+        },
+      },
+    },
+    required: ["cards"],
+  },
+  summary: {
+    type: Type.OBJECT,
+    properties: {
+      tldr: { type: Type.STRING },
+      keyPoints: {
+        type: Type.ARRAY,
+        items: {
+          type: Type.OBJECT,
+          properties: {
+            text: { type: Type.STRING },
+            citations: citationsArray,
+          },
+          required: ["text", "citations"],
+        },
+      },
+    },
+    required: ["tldr", "keyPoints"],
+  },
+  explain: {
+    type: Type.OBJECT,
+    properties: {
+      explanation: { type: Type.STRING },
+      citations: citationsArray,
+    },
+    required: ["explanation", "citations"],
+  },
+};
+
+export function scopeSourcesFor(
+  kind: StudyKind,
+  sources: Source[],
+  options: StudyOptions
+): Source[] {
+  if (kind === "explain") {
+    const source = sources.find((s) => s.id === options.sourceId);
+    if (!source) return [];
+    const page = source.pages.find((p) => p.page === options.page);
+    return page ? [{ ...source, pages: [page] }] : [];
+  }
+  if (kind === "summary" && options.sourceId) {
+    const source = sources.find((s) => s.id === options.sourceId);
+    return source ? [source] : sources;
+  }
+  return sources;
+}
+
+const GROUNDING = `You are erid, a patient Filipino study companion. Use ONLY the SOURCES below.
+Match the language of the sources (Tagalog, English, or Taglish) with a warm kuya/ate tone.
+Every item MUST include citations using the EXACT source name and page number from the page markers.
+If the sources do not support an item, do not invent it. Never use outside knowledge.`;
+
+function taskInstruction(kind: StudyKind, options: StudyOptions): string {
+  const count = options.count ?? (kind === "quiz" ? 5 : 8);
+  switch (kind) {
+    case "quiz":
+      return `Create ${count} multiple-choice questions testing understanding of the SOURCES. Each question has EXACTLY 4 plausible choices, exactly one correct, the 0-based index of the correct choice, and a one-sentence explanation grounded in the sources.`;
+    case "flashcards":
+      return `Create ${count} flashcards. Each has a short front (a term, concept, or question) and a back (the concise answer/definition) drawn from the SOURCES.`;
+    case "summary":
+      return `Write a 1-2 sentence tldr of the SOURCES, then 3 to 6 key points. Each key point is one sentence with its citation.`;
+    case "explain":
+      return `Explain the SOURCE content below in simple, plain language, as if tutoring a student who is seeing it for the first time. Stay grounded and cite the page.`;
+  }
+}
+
+export function buildStudyPrompt(
+  kind: StudyKind,
+  sources: Source[],
+  options: StudyOptions
+): string {
+  return `${GROUNDING}
+
+SOURCES:
+${renderSourcesForStudy(sources)}
+
+TASK:
+${taskInstruction(kind, options)}`;
 }

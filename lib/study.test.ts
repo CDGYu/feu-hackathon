@@ -3,6 +3,9 @@ import {
   resolveCitations,
   renderSourcesForStudy,
   validateStudyRequest,
+  STUDY_SCHEMAS,
+  scopeSourcesFor,
+  buildStudyPrompt,
 } from "@/lib/study";
 import type { Source } from "@/lib/types";
 
@@ -68,5 +71,36 @@ describe("validateStudyRequest", () => {
     expect(
       validateStudyRequest({ kind: "explain", sources, options: { sourceId: "s1", page: 1 } }).ok
     ).toBe(true);
+  });
+});
+
+describe("scopeSourcesFor", () => {
+  it("keeps all sources for quiz", () => {
+    expect(scopeSourcesFor("quiz", sources, {})).toHaveLength(2);
+  });
+  it("narrows explain to one source and one page", () => {
+    const scoped = scopeSourcesFor("explain", sources, { sourceId: "s2", page: 4 });
+    expect(scoped).toHaveLength(1);
+    expect(scoped[0].pages).toEqual([{ page: 4, text: "y" }]);
+  });
+  it("narrows summary to a chosen source when given", () => {
+    expect(scopeSourcesFor("summary", sources, { sourceId: "s1" })[0].id).toBe("s1");
+  });
+});
+
+describe("STUDY_SCHEMAS", () => {
+  it("defines a schema per kind", () => {
+    expect(Object.keys(STUDY_SCHEMAS).sort()).toEqual(
+      ["explain", "flashcards", "quiz", "summary"]
+    );
+  });
+});
+
+describe("buildStudyPrompt", () => {
+  it("embeds the rendered sources and the requested count", () => {
+    const p = buildStudyPrompt("quiz", sources, { count: 7 });
+    expect(p).toContain("--- Sibika · p. 1 ---");
+    expect(p).toContain("7");
+    expect(p.toLowerCase()).toContain("only");
   });
 });
