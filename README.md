@@ -64,7 +64,7 @@ We started with **SalitaCoach** — a voice-first oral-recitation coach, since o
 - **Next.js 16** (App Router) + TypeScript + Tailwind 4 + Turbopack
 - **`@elevenlabs/react`** + **`@elevenlabs/elevenlabs-js`** — Conversational AI agent, signed-URL auth, Knowledge Base + RAG
 - **`@google/genai`** — Gemini 2.5 Flash for grounded text chat (citation parsing) and study-tool generation (structured output via `responseSchema`)
-- **`@paper-design/shaders-react`** — Dithering, PerlinNoise, PulsingBorder
+- **`@paper-design/shaders-react`** — Dithering, PerlinNoise
 - **`pdfjs-dist`** — client-side PDF extraction (no server-side PDF deps)
 - **`motion`** — sheet animations
 - **`vitest`** — unit tests for the study-tools logic
@@ -89,7 +89,7 @@ You will need three credentials. Both ElevenLabs and Google offer enough free cr
 
 ### 3. Local env
 
-Copy `.env.example` to `.env.local` and fill it in:
+Create a `.env.local` file in the project root with:
 
 ```bash
 ELEVENLABS_API_KEY=sk_...
@@ -206,7 +206,7 @@ erid follows a BlueYard-style editorial rhythm: one centered headline, a single 
 
 ## Hackathon
 
-- **Event:** ACM TechSprint
+- **Event:** ACM TechSprint: Asteria
 - **Co-presented by:** FEU Tech Innovation Center (FTIC) & Innovate PH Challenges
 - **Major Partner:** Accenture
 - **Community Partner:** RVND
