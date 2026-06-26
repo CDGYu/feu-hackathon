@@ -110,34 +110,34 @@ function Surface() {
             </div>
           </section>
 
-          <section className="bg-void px-5 py-[90px] sm:px-8">
+          <section className="bg-void px-5 py-12 sm:px-8 sm:py-[90px]">
             <div className="mx-auto grid max-w-[1200px] gap-[12px] lg:grid-cols-[0.34fr_0.66fr]">
               <aside className="border border-line-soft bg-panel p-3">
                 <p className="micro text-canvas-white/55">workspace</p>
-                <h2 className="mt-6 text-[48px] leading-[1.2] tracking-[-0.54px] text-canvas-white">
+                <h2 className="mt-6 hidden text-[48px] leading-[1.2] tracking-[-0.54px] text-canvas-white sm:block">
                   grounded, not generic.
                 </h2>
-                <p className="mt-6 text-[24px] leading-normal tracking-[-0.24px] text-canvas-white/70">
+                <p className="mt-6 hidden text-body text-canvas-white/70 sm:block">
                   Your sources are the boundary. Add one material first, then
                   speak or type.
                 </p>
-                <div className="mt-[60px] grid gap-[5px]">
+                <div className="mt-4 grid grid-cols-2 gap-[5px] sm:mt-[60px] sm:grid-cols-1">
                   <div className="bg-apricot-wash p-3">
                     <p className="micro text-graphite-ink">sources loaded</p>
-                    <p className="mt-4 text-[48px] leading-none tracking-[-0.54px] text-graphite-ink">
+                    <p className="mt-4 text-[30px] leading-none tracking-[-0.54px] text-graphite-ink sm:text-[48px]">
                       {sources.length}
                     </p>
                   </div>
                   <div className="border border-iris-mist p-3">
                     <p className="micro text-iris-mist">mode</p>
-                    <p className="mt-4 text-[24px] leading-normal tracking-[-0.24px] text-canvas-white">
+                    <p className="mt-4 text-body text-canvas-white">
                       voice + text
                     </p>
                   </div>
                 </div>
               </aside>
 
-              <section className="min-h-[620px] border border-line-soft bg-panel p-3">
+              <section className="min-h-[460px] border border-line-soft bg-panel p-3 sm:min-h-[620px]">
                 <WorkspaceTabs />
               </section>
             </div>
